@@ -28,6 +28,9 @@
             background-color: #FDFAEC;
             color: #333;
             box-sizing: border-box;
+            min-height: 100vh; /* Memastikan body cukup tinggi untuk footer di bawah */
+            display: flex;
+            flex-direction: column;
         }
         .container {
             max-width: 800px;
@@ -37,6 +40,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             border: 1px solid #eee;
+            flex-grow: 1; /* Membuat container mengambil sisa ruang */
         }
         h1 {
             color: #2c3e50;
@@ -170,6 +174,35 @@
             display: none;
         }
 
+        /* Footer styles */
+        footer {
+            margin-top: 40px; /* Jarak dari konten di atasnya */
+            padding: 25px 20px;
+            background-color: #2c3e50; /* Warna gelap yang konsisten dengan h1 */
+            color: #ecf0f1; /* Teks terang */
+            text-align: center;
+            font-size: 0.95em;
+        }
+        footer p {
+            margin: 0 0 10px 0;
+        }
+        footer a {
+            color: #98985F; /* Warna link konsisten dengan tombol WA */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #FDFAEC; /* Warna hover terang */
+            text-decoration: underline;
+        }
+        footer .social-links {
+            margin-top: 15px;
+        }
+        footer .social-links a {
+            margin: 0 10px;
+        }
+
         /* --- Media Queries for Responsiveness --- */
         @media (max-width: 768px) {
             .container {
@@ -187,6 +220,12 @@
             .radio-group label, .checkbox-group label { margin-bottom: 10px; }
             .whatsapp-button {
                 padding: 12px 25px; font-size: 1em; width: 100%;
+            }
+            footer {
+                padding: 20px 15px;
+            }
+            footer .social-links a {
+                margin: 0 8px;
             }
         }
         @media (max-width: 480px) {
@@ -208,6 +247,14 @@
             .final-note { padding: 15px; font-size: 0.9em; }
             .whatsapp-button {
                 padding: 10px 20px; font-size: 0.95em; margin-top: 20px; width: 100%;
+            }
+            footer {
+                padding: 15px 10px;
+                font-size: 0.85em;
+            }
+            footer .social-links a {
+                display: block; /* Link di baris baru untuk mobile */
+                margin: 5px 0;
             }
         }
     </style>
@@ -264,6 +311,16 @@
         </form>
     </div>
 
+    <footer>
+        <p>&copy; 2025 Creovative. Hak Cipta Dilindungi.</p>
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@creovativee?_t=ZS-8x0nUzgeX7S&_r=1" target="_blank" rel="noopener noreferrer">TikTok</a>
+            |
+            <a href="https://www.instagram.com/creovative_?igsh=OXc0cjI1Z3Jncjg1" target="_blank" rel="noopener noreferrer">Instagram</a>
+            |
+            <a href="https://lynk.id/creovative" target="_blank" rel="noopener noreferrer">Lynk.id</a>
+        </div>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('creovativeForm');
@@ -458,3 +515,4 @@
     </script>
 </body>
 </html>
+
