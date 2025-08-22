@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    
+    <title>Form Custom Spreadsheet - Creovative</title>
+    <meta name="description" content="Lebih Produktif Bersama Creovative">
+    <meta name="theme-color" content="#98985F">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="icon" type="image/webp" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/IMG_4034.webp">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/IMG_4034.webp">
+    <meta property="og:title" content="Form Custom Spreadsheet - Creovative">
+    <meta property="og:description" content="Lebih Produktif Bersama Creovative">
+    <meta property="og:image" content="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/IMG_4034.webp">
+    <meta property="og:url" content="https://creovative.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Creovative">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #46a34a;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        header .logo img {
+            height: 50px;
+            width: auto;
+            margin-left: 20px;
+        }
+
+        header nav {
+            margin-right: 20px;
+        }
+
+        header nav a {
+            color: #FDFAEC;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: #2c3e50;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5em;
+            color: #FDFAEC;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: #46a34a;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-menu.active a {
+            margin: 10px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 40px auto; /* Jarak simetris untuk desktop */
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            flex-grow: 1;
+        }
+
+        .container form {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #46a34a;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+        }
+
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 12px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e0e0e0;
+            display: none;
+        }
+
+        .section.always-visible {
+            display: block;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        input:invalid:not(:placeholder-shown),
+        textarea:invalid:not(:placeholder-shown) {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.1);
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            display: block;
+            font-weight: normal;
+            margin-bottom: 12px;
+            font-size: 1em;
+            padding-left: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .note {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .whatsapp-button {
+            display: block;
+            width: 100%;
+            max-width: 300px; /* Batas maksimum lebar tombol */
+            margin: 25px auto 0 auto;
+            background-color: #98985F;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #7A7A4C;
+            transform: translateY(-2px);
+        }
+
+        .final-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #6a5a00;
+            background-color: #fef8e7;
+            padding: 15px;
+            border-left: 6px solid #ffc107;
+            border-radius: 8px;
+        }
+
+        .service-error-message {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        footer {
+            background: #46a34a;
+            padding: 20px 0;
+            text-align: center;
+            color: #FDFAEC;
+            font-size: 0.95em;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        footer a {
+            color: #FDFAEC;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #2c3e50;
+        }
+
+        footer .social-links {
+            margin-top: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                width: 95%;
+                margin: 80px auto 30px auto;
+                padding: 20px;
+            }
+
+            .container form {
+                padding: 15px;
+            }
+
+            .whatsapp-button {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            header nav {
+                display: none;
+            }
+
+            header {
+                padding: 10px 0;
+            }
+
+            header .logo img {
+                height: 40px;
+                margin-left: 15px;
+            }
+
+            .container {
+                width: 90%;
+                margin: 70px auto 25px auto;
+                padding: 15px;
+            }
+
+            .container form {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+                margin-top: 20px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            textarea,
+            select {
+                padding: 10px;
+                margin-bottom: 8px;
+            }
+
+            .error-message {
+                margin-bottom: 10px;
+            }
+
+            .radio-group label,
+            .checkbox-group label {
+                margin-bottom: 10px;
+            }
+
+            .whatsapp-button {
+                max-width: 200px;
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            footer {
+                padding: 15px 0;
+                margin-top: 25px;
+                font-size: 0.9em;
+            }
+
+            footer a {
+                margin: 0 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hamburger {
+                margin-right: 15px;
+            }
+
+            header .logo img {
+                height: 35px;
+                margin-left: 10px;
+            }
+
+            .container {
+                width: 85%;
+                margin: 60px auto 20px auto;
+                padding: 10px;
+            }
+
+            .container form {
+                padding: 8px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+            }
+
+            h2 {
+                font-size: 1.2em;
+                margin-top: 15px;
+                padding-bottom: 6px;
+            }
+
+            label {
+                font-size: 1em;
+                margin-bottom: 6px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            textarea,
+            select {
+                padding: 8px;
+                margin-bottom: 6px;
+            }
+
+            .error-message {
+                margin-bottom: 8px;
+                font-size: 0.8em;
+            }
+
+            .note {
+                font-size: 0.85em;
+                margin-bottom: 12px;
+            }
+
+            .radio-group label,
+            .checkbox-group label {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+            }
+
+            .final-note {
+                padding: 12px;
+                font-size: 0.85em;
+            }
+
+            .whatsapp-button {
+                max-width: 180px;
+                padding: 10px 15px;
+                font-size: 0.9em;
+                margin-top: 15px;
+            }
+
+            footer {
+                padding: 10px 0;
+                margin-top: 20px;
+                font-size: 0.8em;
+            }
+
+            footer a {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/IMG_4034.webp" alt="Creovative Logo">
+        </div>
+        <div class="hamburger">☰</div>
+        <nav class="nav-menu">
+            <a href="https://www.tiktok.com/@creovativee?_t=ZS-8x0nUzgeX7S&_r=1" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://www.instagram.com/creovative_?igsh=OXc0cjI1Z3Jncjg1" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://lynk.id/creovative" target="_blank" rel="noopener noreferrer">Lynk.id</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Form Custom Spreadsheet Creovative</h1>
+        <p>Silakan lengkapi formulir singkat di bawah ini agar kami bisa membantu Anda lebih cepat.</p>
+
+        <form id="creovativeForm" novalidate>
+            <div class="section always-visible">
+                <h2>Informasi Kontak</h2>
+                <div>
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" name="nama" required>
+                    <div class="error-message" id="namaError">Nama lengkap wajib diisi.</div>
+                </div>
+
+                <div>
+                    <label for="whatsapp">Nomor WhatsApp:</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Contoh: 6281234567890" required>
+                    <div class="error-message" id="whatsappError">Nomor WhatsApp wajib diisi.</div>
+                    <p class="note"><em>Pastikan nomor aktif agar mudah dihubungi.</em></p>
+                </div>
+
+                <div>
+                    <label for="email">Alamat Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError">Alamat email wajib diisi dan format harus benar.</div>
+                </div>
+            </div>
+
+            <div class="section always-visible">
+                <h2>Layanan yang Diminati</h2>
+                <p>Pilih layanan yang Anda butuhkan:</p>
+                <div class="checkbox-group" id="layananCheckboxes">
+                    <label><input type="checkbox" name="layanan" value="Kelas Privat Spreadsheet" id="checkboxPrivat"> Kelas Privat Spreadsheet</label>
+                    <label><input type="checkbox" name="layanan" value="Pembuatan Spreadsheet Custom" id="checkboxCustom"> Pembuatan Spreadsheet Custom</label>
+                </div>
+                <div class="service-error-message" id="layananError">Mohon pilih setidaknya satu layanan.</div>
+            </div>
+
+            <div class="section" id="kebutuhanSection">
+                <h2>Ceritakan Kebutuhan Anda</h2>
+                <div>
+                    <label for="kebutuhan_detail">Jelaskan singkat kebutuhan Anda (Misal: belajar VLOOKUP, buat laporan keuangan, dll.):</label>
+                    <textarea id="kebutuhan_detail" name="kebutuhan_detail" placeholder="Contoh: Saya ingin belajar membuat dashboard data penjualan dengan PivotTable dan grafik. Atau: Saya butuh spreadsheet untuk melacak inventaris toko online saya." required></textarea>
+                    <div class="error-message" id="kebutuhanDetailError">Penjelasan kebutuhan wajib diisi.</div>
+                </div>
+            </div>
+            
+            <button type="button" class="whatsapp-button" id="sendWhatsapp">Kirim ke WhatsApp</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 Creovative </p>
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@creovativee?_t=ZS-8x0nUzgeX7S&_r=1" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="https://www.instagram.com/creovative_?igsh=OXc0cjI1Z3Jncjg1" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://lynk.id/creovative" target="_blank" rel="noopener noreferrer">Lynk.id</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('creovativeForm');
+            const checkboxPrivat = document.getElementById('checkboxPrivat');
+            const checkboxCustom = document.getElementById('checkboxCustom');
+            const kebutuhanSection = document.getElementById('kebutuhanSection');
+            const whatsappButton = document.getElementById('sendWhatsapp');
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            const namaError = document.getElementById('namaError');
+            const whatsappError = document.getElementById('whatsappError');
+            const emailError = document.getElementById('emailError');
+            const kebutuhanDetailError = document.getElementById('kebutuhanDetailError');
+            const layananError = document.getElementById('layananError');
+
+            function showError(element, messageElement, isValid) {
+                if (isValid) {
+                    messageElement.style.display = 'none';
+                    element.style.borderColor = '#ccc';
+                } else {
+                    messageElement.style.display = 'block';
+                    element.style.borderColor = '#e74c3c';
+                }
+            }
+
+            function toggleKebutuhanSection() {
+                if (checkboxPrivat.checked || checkboxCustom.checked) {
+                    kebutuhanSection.style.display = 'block';
+                    document.getElementById('kebutuhan_detail').setAttribute('required', 'required');
+                } else {
+                    kebutuhanSection.style.display = 'none';
+                    document.getElementById('kebutuhan_detail').removeAttribute('required');
+                    document.getElementById('kebutuhan_detail').value = '';
+                    showError(document.getElementById('kebutuhan_detail'), kebutuhanDetailError, true);
+                }
+            }
+
+            checkboxPrivat.addEventListener('change', toggleKebutuhanSection);
+            checkboxCustom.addEventListener('change', toggleKebutuhanSection);
+
+            toggleKebutuhanSection();
+
+            whatsappButton.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                let formIsValid = true;
+
+                if (document.getElementById('nama').value.trim() === '') {
+                    showError(document.getElementById('nama'), namaError, false);
+                    formIsValid = false;
+                } else {
+                    showError(document.getElementById('nama'), namaError, true);
+                }
+
+                if (document.getElementById('whatsapp').value.trim() === '') {
+                    showError(document.getElementById('whatsapp'), whatsappError, false);
+                    formIsValid = false;
+                } else {
+                    showError(document.getElementById('whatsapp'), whatsappError, true);
+                }
+
+                const emailInput = document.getElementById('email');
+                if (emailInput.value.trim() === '') {
+                    showError(emailInput, emailError, false);
+                    emailError.textContent = 'Alamat email wajib diisi.';
+                    formIsValid = false;
+                } else if (!emailInput.checkValidity()) {
+                    showError(emailInput, emailError, false);
+                    emailError.textContent = 'Format email tidak valid.';
+                    formIsValid = false;
+                } else {
+                    showError(emailInput, emailError, true);
+                    emailError.textContent = 'Alamat email wajib diisi dan format harus benar.';
+                }
+
+                const isPrivatChecked = checkboxPrivat.checked;
+                const isCustomChecked = checkboxCustom.checked;
+                if (!isPrivatChecked && !isCustomChecked) {
+                    layananError.style.display = 'block';
+                    formIsValid = false;
+                } else {
+                    layananError.style.display = 'none';
+                }
+
+                if (kebutuhanSection.style.display === 'block') {
+                    if (document.getElementById('kebutuhan_detail').value.trim() === '') {
+                        showError(document.getElementById('kebutuhan_detail'), kebutuhanDetailError, false);
+                        formIsValid = false;
+                    } else {
+                        showError(document.getElementById('kebutuhan_detail'), kebutuhanDetailError, true);
+                    }
+                }
+
+                if (!formIsValid) {
+                    const firstInvalid = form.querySelector('.error-message[style*="display: block"]');
+                    if (firstInvalid) {
+                        const inputElement = firstInvalid.previousElementSibling.tagName === 'P'
+                            ? firstInvalid.previousElementSibling.previousElementSibling
+                            : firstInvalid.previousElementSibling;
+                        if (inputElement) {
+                            inputElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            inputElement.focus();
+                        }
+                    }
+                    return;
+                }
+
+                let message = 'Halo Creovative! Saya sudah mengisi form konsultasi custom sheet. Berikut ringkasan data saya:\n\n';
+
+                const getValue = (id) => document.getElementById(id) ? document.getElementById(id).value.trim() : '';
+                const getCheckboxValues = (name) => {
+                    const checkboxes = document.getElementsByName(name);
+                    const values = [];
+                    for (const checkbox of checkboxes) {
+                        if (checkbox.checked) {
+                            values.push(checkbox.value);
+                        }
+                    }
+                    return values.length > 0 ? values.join(', ') : 'Tidak dipilih';
+                };
+
+                message += '--- Info Kontak ---\n';
+                message += 'Nama: ' + getValue('nama') + '\n';
+                message += 'WhatsApp: ' + getValue('whatsapp') + '\n';
+                message += 'Email: ' + getValue('email') + '\n';
+                message += '\n';
+
+                message += '--- Layanan Diminati ---\n';
+                message += 'Layanan: ' + getCheckboxValues('layanan') + '\n\n';
+
+                if (isPrivatChecked || isCustomChecked) {
+                    message += '--- Kebutuhan Saya ---\n';
+                    message += 'Detail: ' + (getValue('kebutuhan_detail') || 'Tidak diisi') + '\n\n';
+                }
+
+                message += 'Mohon tindak lanjutnya yaa, terimakasih!';
+
+                const whatsappNumber = '62881080606200';
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+                window.open(whatsappUrl, '_blank');
+            });
+
+            document.getElementById('nama').addEventListener('input', function() {
+                showError(this, namaError, this.value.trim() !== '');
+            });
+
+            document.getElementById('whatsapp').addEventListener('input', function() {
+                showError(this, whatsappError, this.value.trim() !== '');
+            });
+
+            document.getElementById('email').addEventListener('input', function() {
+                if (this.value.trim() === '' || !this.checkValidity()) {
+                    showError(this, emailError, false);
+                    emailError.textContent = this.value.trim() === '' ? 'Alamat email wajib diisi.' : 'Format email tidak valid.';
+                } else {
+                    showError(this, emailError, true);
+                    emailError.textContent = 'Alamat email wajib diisi dan format harus benar.';
+                }
+            });
+
+            document.getElementById('kebutuhan_detail').addEventListener('input', function() {
+                if (kebutuhanSection.style.display === 'block') {
+                    showError(this, kebutuhanDetailError, this.value.trim() !== '');
+                }
+            });
+
+            checkboxPrivat.addEventListener('change', function() {
+                if (checkboxPrivat.checked || checkboxCustom.checked) {
+                    layananError.style.display = 'none';
+                }
+            });
+
+            checkboxCustom.addEventListener('change', function() {
+                if (checkboxPrivat.checked || checkboxCustom.checked) {
+                    layananError.style.display = 'none';
+                }
+            });
+
+            // Toggle hamburger menu
+            hamburger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
