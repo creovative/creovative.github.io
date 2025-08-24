@@ -2,22 +2,19 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creovative - Lebih Produktif Bersama Template Google Sheet & Kelas Zoom</title>
     
-    <title>Form Custom Spreadsheet - Creovative</title>
-    <meta name="description" content="Lebih Produktif Bersama Creovative">
-    <meta name="theme-color" content="#2f9442">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Kelola bisnis dengan lebih mudah melalui Template Google Sheet siap pakai dan Kelas Zoom interaktif. Solusi hemat biaya, cepat, dan efisien untuk usaha Anda.">
+    <meta name="keywords" content="template google sheet, kelas zoom bisnis, dashboard keuangan, tracking stok, sistem bisnis, UMKM, produktivitas, laporan keuangan otomatis">
+    <meta name="author" content="Creovative">
+    
+    <!-- Favicon & OG Image -->
     <link rel="icon" type="image/webp" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
-    <meta property="og:title" content="Form Custom Spreadsheet - Creovative">
-    <meta property="og:description" content="Lebih Produktif Bersama Creovative">
     <meta property="og:image" content="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
-    <meta property="og:url" content="https://creovative.art/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Creovative">
-    
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
+
     <style>
         :root {
             --green-dark: #2f9442;
@@ -26,226 +23,311 @@
             --text-light: #6c757d;
             --border-color: #dee2e6;
             --white: #fff;
-            --bg-light-grey: #f8f9fa;
         }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modalContentSlideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg-light-grey);
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 120px auto 40px auto;
-            background: var(--white);
-            padding: 2rem 2.5rem;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            width: 90%;
-            flex-grow: 1;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background-color: var(--white); overflow-x: hidden; }
+        body.modal-open { overflow: hidden; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+        section { padding: 100px 0; }
+        h2 { font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 700; text-align: center; margin-bottom: 4rem; }
 
         /* --- HEADER --- */
-        header { background: var(--green-dark); color: var(--white); padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        header .container-header { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; }
-        
-        /* --- FORM STYLES --- */
-        h1 {
-            color: var(--green-dark);
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 2em;
-        }
-        .form-intro {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 2.5rem;
-        }
-        h2 {
-            color: var(--text-dark);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-        .section { margin-bottom: 30px; }
-        .section.hidden { display: none; }
+        header { background: var(--green-dark); color: var(--white); padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; transition: box-shadow 0.3s ease; }
+        header.scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .brand { font-size: 1.5rem; font-weight: 700; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
+        .nav-links a:hover { opacity: 0.8; }
+        .menu-toggle { display: none; background: none; border: none; color: var(--white); font-size: 1.75rem; cursor: pointer; }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
-            font-size: 1em;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 5px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 1em;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus,
-        textarea:focus {
-            border-color: var(--green-dark);
-            box-shadow: 0 0 8px rgba(47, 148, 66, 0.2);
-            outline: none;
-        }
+        /* --- HERO SECTION --- */
+        .hero { background: linear-gradient(180deg, #2f9442 0%, #67cd79 100%); color: var(--white); text-align: center; padding: 140px 0 100px; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .hero-content h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2.5rem; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .hero .cta-button { background: var(--white); color: var(--green-dark); padding: 15px 35px; border-radius: 50px; font-size: 1.1rem; font-weight: 600; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .hero .cta-button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .phone-mockups { display: flex; gap: 2rem; margin-top: 4rem; justify-content: center; }
+        .phone { width: 270px; height: 550px; background-color: var(--white); border: 8px solid #f0f0f0; border-radius: 40px; box-shadow: 0 20px 50px -10px rgba(0,0,0,0.2); flex-shrink: 0; padding: 10px; }
+        .phone-screen { width: 100%; height: 100%; background: var(--white); border-radius: 28px; overflow: hidden; }
+        .phone-screen.chart-screen { padding: 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        .chart-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 2rem; color: var(--text-dark); }
+        .donut-chart { width: 150px; height: 150px; border-radius: 50%; background: conic-gradient(#4CAF50 0 144deg, #FFC107 144deg 234deg, #FF5722 234deg 306deg, #2196F3 306deg 360deg); position: relative; animation: spin 15s linear infinite; }
+        .donut-chart::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: var(--white); border-radius: 50%; }
+        .legend { list-style: none; margin-top: 2rem; width: 100%; text-align: left; padding-left: 1rem; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-dark); }
+        .legend-color { width: 16px; height: 16px; border-radius: 4px; margin-right: 12px; }
+        .phone-screen.app-screen { padding: 0; }
+        .app-header { background-color: var(--green-dark); color: var(--white); padding: 1rem 1.5rem; border-radius: 28px 28px 0 0; font-size: 1.1rem; font-weight: 600; text-align: center; }
+        .app-content { padding: 1.5rem; }
+        .app-item { display: flex; align-items: center; margin-bottom: 1.5rem; }
+        .app-icon { width: 40px; height: 40px; background-color: var(--green-dark); border-radius: 8px; margin-right: 1rem; }
+        .app-text div:first-child { font-weight: 600; color: var(--text-dark); }
+        .app-text div:last-child { font-size: 0.8rem; color: var(--text-light); }
         
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            font-weight: normal;
-            margin-bottom: 12px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        input[type="checkbox"] {
-            margin-right: 12px;
-            transform: scale(1.2);
-            accent-color: var(--green-dark);
-        }
-        textarea { resize: vertical; min-height: 100px; }
-        .note { font-size: 0.9em; color: var(--text-light); margin-top: 5px; margin-bottom: 20px; }
-        .error-message { color: #e74c3c; font-size: 0.85em; margin-top: 5px; margin-bottom: 15px; display: none; }
-        
-        .btn-orange {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 25px auto 0 auto;
-            background: var(--orange-accent);
-            color: var(--white);
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
+        /* --- FEATURES & SOLUTIONS (KONTEN) --- */
+        .features { background-color: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+        .feature-card { background: var(--white); padding: 2rem; border-radius: 15px; border: 1px solid var(--border-color); transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.07); }
+        .feature-card.featured { background: var(--green-dark); color: var(--white); border: none; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600; }
+        .feature-card p { font-size: 0.95rem; opacity: 0.9; line-height: 1.6; }
+        .solutions { background-color: var(--green-dark); }
+        .solutions-content { max-width: 800px; margin: 0 auto; text-align: center; }
+        .solutions-content h2 { color: var(--white); margin-bottom: 1rem; }
+        .solutions-content p.intro { color: rgba(255, 255, 255, 0.9); font-size: 1.1rem; margin-bottom: 2.5rem; }
+        .solution-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; text-align: left; }
+        .solution-card { background: var(--white); padding: 2rem; border-radius: 15px; border: 1px solid var(--border-color); transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .solution-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.07); }
+        .solution-card h3 { font-size: 1.2rem; margin-bottom: 1rem; font-weight: 600; }
+        .solution-card p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 1.5rem; flex-grow: 1; }
+        .solution-card ul { list-style-position: inside; padding-left: 5px; margin-bottom: 2rem; }
+        .solution-card li { font-size: 0.95rem; color: var(--text-light); margin-bottom: 0.5rem; }
+        .btn-orange { background: var(--orange-accent); color: var(--white); padding: 12px 25px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s ease; display: inline-block; }
         .btn-orange:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        /* --- FOOTER --- */
-        /* REVISI: Footer dirapikan */
-        footer { background: var(--green-dark); color: var(--white); padding: 4rem 1rem; margin-top: auto; }
-        footer .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0;
-            background: none;
-            box-shadow: none;
-            border-radius: 0;
-        }
-        .footer-logo { max-width: 150px; }
-        .footer-nav { list-style: none; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; padding: 0; }
+        /* --- WHY CHOOSE & TESTIMONIALS --- */
+        .why-choose { background-color: var(--white); }
+        .why-choose .container { display: flex; align-items: center; gap: 4rem; }
+        .why-choose-content { flex: 1; }
+        .why-choose-content h2 { text-align: left; }
+        .benefits-list { list-style: none; }
+        .benefits-list li { display: flex; align-items: center; margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .check-icon { margin-right: 1rem; font-size: 1.2rem; color: var(--green-dark); }
+        .why-choose-image { flex: 1; text-align: center; }
+        .why-choose-image img { max-width: 100%; height: auto; border-radius: 15px; }
+        .testimonials { background: var(--green-dark); color: var(--white); padding: 100px 0; overflow: hidden; }
+        .slider-container { cursor: grab; overflow: hidden; position: relative; width: 100%; user-select: none; }
+        .slider-container.active { cursor: grabbing; }
+        .slider-track { display: flex; gap: 1.5rem; }
+        .testimonial-card { background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: left; flex-shrink: 0; width: 350px; }
+        .testimonial-card p { font-size: 1rem; margin-bottom: 1.5rem; font-style: italic; }
+        .testimonial-card .author { font-weight: 600; }
+
+        /* --- PORTFOLIO & MODAL --- */
+        .portfolio { background-color: var(--white); }
+        .portfolio h2 { margin-bottom: 1rem; }
+        .portfolio .subtitle { max-width: 600px; margin: 0 auto 3rem; color: var(--text-light); text-align: center; }
+        .portfolio-categories { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .category-btn { background: var(--white); color: var(--orange-accent); border: 1px solid var(--orange-accent); padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; flex-shrink: 0; }
+        .category-btn.active, .category-btn:hover { background: var(--orange-accent); color: var(--white); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .portfolio-item { border-radius: 15px; overflow: hidden; border: 1px solid var(--border-color); background: #fdfdfd; text-align: left; transition: all 0.4s ease; cursor: pointer; }
+        .portfolio-item.hidden { transform: scale(0.8); opacity: 0; font-size: 0; height: 0; padding: 0; margin: 0; border: 0; overflow: hidden; }
+        .portfolio-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.07); }
+        .portfolio-item img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+        .portfolio-item-content { padding: 1.5rem; }
+        .portfolio-item-content h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .portfolio-item-content p { color: var(--text-light); font-size: 0.95rem; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); animation: modalFadeIn 0.3s ease; }
+        .modal-content { background-color: var(--white); margin: 5% auto; padding: 2rem; border-radius: 15px; width: 90%; max-width: 800px; position: relative; animation: modalContentSlideIn 0.4s ease; }
+        .close-button { color: #aaa; position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; font-weight: bold; cursor: pointer; }
+        .close-button:hover { color: var(--text-dark); }
+        #modal-title { margin-bottom: 0.5rem; }
+        #modal-description { margin-bottom: 2rem; color: var(--text-light); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .gallery-grid img { width: 100%; border-radius: 8px; }
+
+        /* --- FINAL CTA & FOOTER --- */
+        .final-cta { text-align: center; background-color: var(--white); }
+        .final-cta .container { max-width: 800px; }
+        .final-cta h2 { margin-bottom: 2rem; }
+        .final-cta .btn-orange { padding: 15px 35px; font-size: 1.1rem; }
+        footer { background: var(--green-dark); color: var(--white); text-align: center; padding: 4rem 1rem; }
+        .footer-logo { max-width: 150px; margin-bottom: 1.5rem; }
+        .footer-nav { list-style: none; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
         .footer-nav a { color: var(--white); text-decoration: none; transition: opacity 0.3s ease; }
         .footer-nav a:hover { opacity: 0.8; }
         .social-links { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
         .social-link { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--white); transition: opacity 0.3s ease; }
         .social-link:hover { opacity: 0.8; }
         .social-icon { width: 24px; height: 24px; }
-        .copyright { margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.6; }
+        .copyright { margin-top: 3rem; font-size: 0.9rem; opacity: 0.6; }
 
         /* --- RESPONSIVE STYLES --- */
+        @media (max-width: 1024px) {
+            .container { padding: 0 2rem; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .solution-cards { grid-template-columns: 1fr; }
+            .why-choose .container { flex-direction: column; gap: 3rem; }
+            .why-choose-content h2 { text-align: center; }
+            .why-choose-image { order: -1; }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                margin: 90px auto 30px auto;
-                padding: 1.5rem;
-            }
-            h1 { font-size: 1.8em; }
-            h2 { font-size: 1.4em; }
+            section { padding: 60px 0; }
+            h2 { margin-bottom: 2.5rem; }
+            .container { padding: 0 1rem; }
+            .menu-toggle { display: block; }
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--green-dark); flex-direction: column; padding: 1rem 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+            .nav-links.active { display: flex; }
+            .nav-links li { text-align: center; padding: 0.75rem 0; }
+            .features-grid, .solution-cards { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            
+            .hero .container { padding: 0 1rem; }
+            .hero-content { width: 100%; }
+            .phone.phone2 { display: none; }
+            .phone.phone1 { width: 250px; height: auto; border-width: 8px; border-radius: 30px; padding: 8px; }
+            
+            .portfolio-categories { justify-content: center; }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container-header">
-            <a href="https://creovative.github.io/" class="brand">creovative</a>
-        </div>
+
+    <header id="header">
+        <div class="container"><nav><div class="brand">creovative</div><ul class="nav-links"><li><a href="#beranda">Beranda</a></li><li><a href="#produk">Produk</a></li><li><a href="#produk">Kelas Zoom</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#kontak">Kontak</a></li></ul><button class="menu-toggle" aria-label="Toggle navigation menu">&#9776;</button></nav></div>
     </header>
 
-    <div class="container">
-        <h1>Form Custom Spreadsheet</h1>
-        <p class="form-intro">Silakan lengkapi formulir singkat di bawah ini agar kami bisa membantu Anda lebih cepat.</p>
-
-        <form id="creovativeForm" novalidate>
-            <div class="section">
-                <h2>Informasi Kontak</h2>
-                <div>
-                    <label for="nama">Nama Lengkap:</label>
-                    <input type="text" id="nama" name="nama" required>
-                    <div class="error-message" id="namaError">Nama lengkap wajib diisi.</div>
-                </div>
-                <div>
-                    <label for="whatsapp">Nomor WhatsApp:</label>
-                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Contoh: 6281234567890" required>
-                    <div class="error-message" id="whatsappError">Nomor WhatsApp wajib diisi.</div>
-                    <p class="note"><em>Pastikan nomor aktif agar mudah dihubungi.</em></p>
-                </div>
-                <div>
-                    <label for="email">Alamat Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <div class="error-message" id="emailError">Alamat email wajib diisi dan format harus benar.</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Layanan yang Diminati</h2>
-                <div class="checkbox-group" id="layananCheckboxes">
-                    <label><input type="checkbox" name="layanan" value="Kelas Privat Spreadsheet" id="checkboxPrivat"> Kelas Privat Spreadsheet</label>
-                    <label><input type="checkbox" name="layanan" value="Pembuatan Spreadsheet Custom" id="checkboxCustom"> Pembuatan Spreadsheet Custom</label>
-                </div>
-                <div class="error-message" id="layananError">Mohon pilih setidaknya satu layanan.</div>
-            </div>
-
-            <div class="section hidden" id="kebutuhanSection">
-                <h2>Ceritakan Kebutuhan Anda</h2>
-                <div>
-                    <label for="kebutuhan_detail">Jelaskan singkat kebutuhan Anda:</label>
-                    <textarea id="kebutuhan_detail" name="kebutuhan_detail" placeholder="Contoh: Saya ingin belajar membuat dashboard data penjualan dengan PivotTable dan grafik. Atau: Saya butuh spreadsheet untuk melacak inventaris toko online saya." required></textarea>
-                    <div class="error-message" id="kebutuhanDetailError">Penjelasan kebutuhan wajib diisi.</div>
+    <main>
+        <section class="hero" id="beranda">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Menyederhanakan Bisnis & Hidup Anda dengan Template Google Sheet!</h1>
+                    <p>Kelola Bisnis, keuangan pribadi, atau kebiasaan harian lebih cepat dan rapi tanpa ribet.</p>
+                    <a href="#produk" class="cta-button">Mulai Sekarang</a>
+                    <div class="phone-mockups">
+                        <div class="phone phone1">
+                            <div class="phone-screen chart-screen">
+                                <h3 class="chart-title">Event Expenses</h3>
+                                <div class="donut-chart"></div>
+                                <ul class="legend">
+                                    <li class="legend-item"><div class="legend-color" style="background: #4CAF50;"></div>Venue (40%)</li>
+                                    <li class="legend-item"><div class="legend-color" style="background: #FFC107;"></div>Catering (25%)</li>
+                                    <li class="legend-item"><div class="legend-color" style="background: #FF5722;"></div>Equipment (20%)</li>
+                                    <li class="legend-item"><div class="legend-color" style="background: #2196F3;"></div>Marketing (15%)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="phone phone2">
+                            <div class="phone-screen app-screen">
+                                <div class="app-header">All Spreadsheets</div>
+                                <div class="app-content">
+                                    <div class="app-item"><div class="app-icon"></div><div class="app-text"><div>My Expenses</div><div>Last opened 2 hours ago</div></div></div>
+                                    <div class="app-item"><div class="app-icon"></div><div class="app-text"><div>Stock Tracker</div><div>Last opened 1 day ago</div></div></div>
+                                    <div class="app-item"><div class="app-icon"></div><div class="app-text"><div>My Books</div><div>Last opened 3 days ago</div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <button type="button" class="btn-orange" id="sendWhatsapp">Kirim ke WhatsApp</button>
-        </form>
-    </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Apakah anda mengalami ini?</h2>
+                <div class="features-grid">
+                    <div class="feature-card"><h3>Data Bisnis berantakan dan sulit ditemukan</h3><p>Catatan bisnis tersebar di berbagai file dan aplikasi, membuat pencarian data memakan waktu.</p></div>
+                    <div class="feature-card featured"><h3>Keuangan Pribadi Kacau</h3><p>Pengeluaran sering melebihi anggaran tanpa tahu alasannya? Keuangan pribadi yang tidak terorganisir membuat Anda sulit menabung atau merencanakan masa depan finansial.</p></div>
+                    <div class="feature-card"><h3>Stok & Penjualan Tidak Terpantau</h3><p>Sulit mengetahui jumlah barang yang tersedia atau produk mana yang paling laris.</p></div>
+                    <div class="feature-card"><h3>Administrasi Menyita Waktu</h3><p>Mengelola laporan, catatan, atau tugas harian terasa seperti pekerjaan tanpa akhir? Administrasi yang memakan waktu membuat Anda kehilangan fokus pada hal-hal penting seperti bisnis atau produktivitas pribadi.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="solutions" id="produk">
+            <div class="container">
+                <div class="solutions-content">
+                    <h2>Creovative Hadir untuk Membantu Anda</h2>
+                    <div class="solution-cards">
+                        <div class="solution-card">
+                            <h3>📊 Template Google Sheet</h3>
+                            <p>Template siap pakai untuk UMKM, freelancer, dan individu: laporan keuangan, manajemen stok, habit tracker, hingga dashboard proyek.</p>
+                            <ul>
+                                <li>Mudah digunakan tanpa perlu belajar rumus dari nol</li>
+                                <li>Bisa dipakai di HP & laptop</li>
+                                <li>Hemat waktu dan biaya</li>
+                            </ul>
+                            <a href="https://lynk.id/creovative" target="_blank" class="btn-orange">Cek Template Sekarang</a>
+                        </div>
+                        <div class="solution-card">
+                            <h3>🎥 Kelas Zoom Eksklusif</h3>
+                            <p>Belajar langsung bersama tim Creovative melalui kelas online. Cocok untuk pebisnis UMKM, freelancer, atau siapa saja yang ingin menguasai Google Sheets untuk kebutuhan profesional dan pribadi.</p>
+                            <ul>
+                                <li>Live Zoom Training</li>
+                                <li>Tanya jawab interaktif</li>
+                                <li>Materi step-by-step untuk pemula</li>
+                            </ul>
+                            <a href="https://wa.me/62881080606200?text=Halo%20Creovative%2C%20saya%20mau%20mendaftar%20Kelas%20Zoom%20Eksklusif.%20Bagaimana%20caranya%20ya%3F" target="_blank" class="btn-orange">Daftar Kelas Zoom</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="why-choose" id="tentang-kami">
+            <div class="container"><div class="why-choose-content"><h2>Kenapa Memilih Creovative?</h2><ul class="benefits-list"><li><span class="check-icon">✅</span><span>Solusi praktis, tidak ribet</span></li><li><span class="check-icon">✅</span><span>Didampingi kelas online agar paham penggunaan</span></li><li><span class="check-icon">✅</span><span>Desain profesional, siap langsung dipakai</span></li><li><span class="check-icon">✅</span><span>Harga terjangkau</span></li></ul></div><div class="why-choose-image"><img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/model.png" alt="Wanita profesional"></div></div>
+        </section>
+
+        <section class="testimonials">
+            <div class="container"><h2>Apa Kata Mereka?</h2></div>
+            <div class="slider-container">
+                <div class="slider-track">
+                    <div class="testimonial-card"><p>"Template keuangan Creovative membantu saya mengelola penjualan toko online tanpa pusing. Sekarang laporan bulanan selesai dalam hitungan menit!"</p><div class="author">- Rina, Owner Toko Fashion Online, Jakarta</div></div>
+                    <div class="testimonial-card"><p>"Kelas Zoom-nya sangat praktis! Saya belajar membuat dashboard stok untuk kafe saya, dan sekarang stok selalu terpantau dengan rapi."</p><div class="author">- Adi, F&B Business, Bandung</div></div>
+                    <div class="testimonial-card"><p>"Habit tracker dari Creovative bikin saya lebih disiplin. Saya bisa pantau target harian dan jadi lebih produktif sebagai freelancer."</p><div class="author">- Dika, Desainer Grafis, Surabaya</div></div>
+                    <div class="testimonial-card"><p>"Sebelum pakai template Creovative, keuangan pribadi saya kacau. Sekarang saya tahu persis berapa yang saya tabung setiap bulan!"</p><div class="author">- Lita, Ibu Rumah Tangga, Yogyakarta</div></div>
+                    <div class="testimonial-card"><p>"Template proyek Creovative membantu saya mengatur deadline klien dengan mudah. Tidak ada lagi proyek yang terlambat!"</p><div class="author">- Fajar, Konsultan Digital Marketing, Bali</div></div>
+                    <div class="testimonial-card"><p>"Kelas Zoom Creovative sangat interaktif. Saya belajar cara bikin laporan keuangan otomatis untuk UMKM saya. Hemat waktu banget!"</p><div class="author">- Siti, F&B Business, Semarang</div></div>
+                    <div class="testimonial-card"><p>"Template stok dari Creovative bikin bisnis saya lebih teratur. Saya tahu kapan harus restock tanpa takut kehabisan barang."</p><div class="author">- Bima, Owner Toko Grosir, Medan</div></div>
+                    <div class="testimonial-card"><p>"Saya pakai template keuangan pribadi untuk ngatur anggaran bulanan. Sekarang saya bisa sisihkan dana untuk liburan!"</p><div class="author">- Maya, Karyawan Swasta, Makassar</div></div>
+                    <div class="testimonial-card"><p>"Creovative membantu saya mengelola tugas harian dengan habit tracker. Produktivitas saya meningkat drastis!"</p><div class="author">- Arif, Content Creator, Surabaya</div></div>
+                    <div class="testimonial-card"><p>"Template dan kelas Zoom Creovative bikin administrasi UMKM saya jauh lebih cepat. Sekarang saya fokus ke strategi bisnis!"</p><div class="author">- Dewi, Owner Katering, Solo</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio" id="portfolio">
+            <div class="container">
+                <h2>Hasil Karya Kami</h2>
+                <p class="subtitle">Klik pada salah satu item di bawah ini untuk melihat detail galeri dari karya kami.</p>
+                <div class="portfolio-categories">
+                    <button class="category-btn active" data-category="all">Semua</button>
+                    <button class="category-btn" data-category="keuangan">Keuangan</button>
+                    <button class="category-btn" data-category="inventaris">Inventaris</button>
+                    <button class="category-btn" data-category="proyek">Proyek</button>
+                </div>
+                <!-- REVISI: Konten portofolio diperbarui -->
+                <div class="portfolio-grid">
+                    <div class="portfolio-item" data-category="proyek" data-title="Catatan untuk Sewa Arena" data-description="Sistem pencatatan dan manajemen untuk penyewaan arena atau tempat." data-images="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212642.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212709.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212723.jpg">
+                        <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212642.jpg" alt="Catatan Sewa Arena"><div class="portfolio-item-content"><h3>Catatan untuk Sewa Arena</h3><p>Sistem manajemen penyewaan.</p></div></div>
+                    <div class="portfolio-item" data-category="keuangan" data-title="Data Cashflow & Hutang Piutang" data-description="Template komprehensif untuk melacak arus kas, hutang, dan piutang bisnis." data-images="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20CASHFLOW%20HUTANG%20PIUTANG/UNTUK%20PORTO_Screenshot%202025-08-23%20214024.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20CASHFLOW%20HUTANG%20PIUTANG/UNTUK%20PORTO_Screenshot%202025-08-23%20214010.jpg">
+                        <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20CASHFLOW%20HUTANG%20PIUTANG/UNTUK%20PORTO_Screenshot%202025-08-23%20214024.jpg" alt="Data Cashflow"><div class="portfolio-item-content"><h3>Data Cashflow & Hutang Piutang</h3><p>Template pelacakan arus kas.</p></div></div>
+                    <div class="portfolio-item" data-category="keuangan" data-title="Data Keuangan Harian" data-description="Pencatatan keuangan harian yang simpel dan mudah digunakan untuk personal atau bisnis." data-images="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20HARIAN/UNTUK%20PORTO_Screenshot%202025-08-23%20214422.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20HARIAN/UNTUK%20PORTO_Screenshot%202025-08-23%20214435.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20HARIAN/UNTUK%20PORTO_Screenshot%202025-08-23%20214449.jpg">
+                        <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20HARIAN/UNTUK%20PORTO_Screenshot%202025-08-23%20214422.jpg" alt="Data Keuangan Harian"><div class="portfolio-item-content"><h3>Data Keuangan Harian</h3><p>Pencatatan keuangan harian.</p></div></div>
+                    <div class="portfolio-item" data-category="keuangan" data-title="Keuangan Perusahaan Barang & Jasa" data-description="Sistem keuangan lengkap untuk perusahaan yang bergerak di bidang barang dan jasa." data-images="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20PERUSAHAAN%20BARANG-JASA/UNTUK%20PORTO_Screenshot%202025-08-23%20212300.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20PERUSAHAAN%20BARANG-JASA/UNTUK%20PORTO_Screenshot%202025-08-23%20212314.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20PERUSAHAAN%20BARANG-JASA/UNTUK%20PORTO_Screenshot%202025-08-23%20212324.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20PERUSAHAAN%20BARANG-JASA/UNTUK%20PORTO_Screenshot%202025-08-23%20212349.jpg">
+                        <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/DATA%20KEUANGAN%20PERUSAHAAN%20BARANG-JASA/UNTUK%20PORTO_Screenshot%202025-08-23%20212300.jpg" alt="Keuangan Perusahaan"><div class="portfolio-item-content"><h3>Keuangan Perusahaan</h3><p>Sistem keuangan barang & jasa.</p></div></div>
+                    <div class="portfolio-item" data-category="proyek" data-title="Input & Dashboard Kustom" data-description="Solusi input data yang terintegrasi dengan dashboard visual untuk monitoring." data-images="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/INPUT-DASHBOARD/UNTUK%20PORTO_Screenshot%202025-08-23%20215615.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/INPUT-DASHBOARD/UNTUK%20PORTO_Screenshot%202025-08-23%20215442.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/INPUT-DASHBOARD/UNTUK%20PORTO_Screenshot%202025-08-23%20215435.jpg">
+                        <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/INPUT-DASHBOARD/UNTUK%20PORTO_Screenshot%202025-08-23%20215615.jpg" alt="Input Dashboard"><div class="portfolio-item-content"><h3>Input & Dashboard Kustom</h3><p>Solusi input data terintegrasi.</p></div></div>
+                    <div class="portfolio-item" data-category="proyek" data-title="Timer untuk Tindakan" data-description="Alat bantu produktivitas untuk melacak waktu pada setiap tindakan atau tugas." data-images="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/TIMER%20UNTUK%20TINDAKAN/UNTUK%20PORTO_Screenshot%202025-08-23%20211038.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/TIMER%20UNTUK%20TINDAKAN/UNTUK%20PORTO_Screenshot%202025-08-23%20211053.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/TIMER%20UNTUK%20TINDAKAN/UNTUK%20PORTO_Screenshot%202025-08-23%20211810.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/TIMER%20UNTUK%20TINDAKAN/UNTUK%20PORTO_Screenshot%202025-08-23%20211022.jpg">
+                        <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/TIMER%20UNTUK%20TINDAKAN/UNTUK%20PORTO_Screenshot%202025-08-23%20211038.jpg" alt="Timer Tindakan"><div class="portfolio-item-content"><h3>Timer untuk Tindakan</h3><p>Alat bantu produktivitas.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta">
+             <div class="container"><h2 >Saatnya Lebih Produktif Bersama Creovative!</h2><a href="https://creovative.art/form-customer/" class="btn-orange">Mulai Sekarang</a></div>
+        </section>
+    </main>
 
     <footer id="kontak">
         <div class="container">
             <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creo-land.webp" alt="Creovative Logo" class="footer-logo">
             <ul class="footer-nav">
-                <li><a href="https://creovative.github.io/#beranda">Beranda</a></li>
-                <li><a href="https://creovative.github.io/#produk">Produk</a></li>
-                <li><a href="https://creovative.github.io/#produk">Kelas Zoom</a></li>
-                <li><a href="https://creovative.github.io/#portfolio">Portfolio</a></li>
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#produk">Produk</a></li>
+                <li><a href="#produk">Kelas Zoom</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
             </ul>
             <div class="social-links">
                 <a href="https://wa.me/62881080606200?text=hai%20kak%20saya%20mau%20konsultasi%20spreadsheet" target="_blank" class="social-link">
@@ -265,87 +347,146 @@
         </div>
     </footer>
 
+    <div id="portfolio-modal" class="modal">
+        <div class="modal-content"><span class="close-button">&times;</span><h3 id="modal-title"></h3><p id="modal-description"></p><div id="modal-gallery" class="gallery-grid"></div></div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('creovativeForm');
-            const checkboxPrivat = document.getElementById('checkboxPrivat');
-            const checkboxCustom = document.getElementById('checkboxCustom');
-            const kebutuhanSection = document.getElementById('kebutuhanSection');
-            const whatsappButton = document.getElementById('sendWhatsapp');
+            // --- Efek scroll pada header & Menu Mobile ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 50); });
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            menuToggle.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => { if (navLinks.classList.contains('active')) { navLinks.classList.remove('active'); } });
+            });
 
-            function toggleKebutuhanSection() {
-                if (checkboxPrivat.checked || checkboxCustom.checked) {
-                    kebutuhanSection.classList.remove('hidden');
-                    document.getElementById('kebutuhan_detail').setAttribute('required', 'required');
-                } else {
-                    kebutuhanSection.classList.add('hidden');
-                    document.getElementById('kebutuhan_detail').removeAttribute('required');
-                }
+            // --- Fungsionalitas Slider Testimoni (Otomatis & Manual) ---
+            const sliderContainer = document.querySelector('.slider-container');
+            if (sliderContainer) {
+                const sliderTrack = sliderContainer.querySelector('.slider-track');
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                let autoScrollInterval;
+
+                // Duplikasi item untuk loop
+                sliderTrack.innerHTML += sliderTrack.innerHTML;
+                const items = sliderTrack.querySelectorAll('.testimonial-card');
+                const itemWidth = items[0].offsetWidth + parseFloat(getComputedStyle(items[0]).marginRight || 0);
+                const totalWidth = itemWidth * (items.length / 2);
+
+                const startAutoScroll = () => {
+                    stopAutoScroll(); // Hentikan interval sebelumnya
+                    autoScrollInterval = setInterval(() => {
+                        sliderContainer.scrollLeft += 1;
+                        if (sliderContainer.scrollLeft >= totalWidth) {
+                            sliderContainer.scrollLeft = 0;
+                        }
+                    }, 25); // Kecepatan scroll
+                };
+
+                const stopAutoScroll = () => {
+                    clearInterval(autoScrollInterval);
+                };
+
+                const handleInteractionStart = (e) => {
+                    isDown = true;
+                    sliderContainer.classList.add('active');
+                    startX = (e.pageX || e.touches[0].pageX) - sliderContainer.offsetLeft;
+                    scrollLeft = sliderContainer.scrollLeft;
+                    stopAutoScroll();
+                };
+
+                const handleInteractionEnd = () => {
+                    isDown = false;
+                    sliderContainer.classList.remove('active');
+                    setTimeout(startAutoScroll, 3000); // Mulai lagi setelah 3 detik
+                };
+
+                const handleInteractionMove = (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = (e.pageX || e.touches[0].pageX) - sliderContainer.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    sliderContainer.scrollLeft = scrollLeft - walk;
+                };
+
+                sliderContainer.addEventListener('mousedown', handleInteractionStart);
+                sliderContainer.addEventListener('mouseleave', handleInteractionEnd);
+                sliderContainer.addEventListener('mouseup', handleInteractionEnd);
+                sliderContainer.addEventListener('mousemove', handleInteractionMove);
+                sliderContainer.addEventListener('touchstart', handleInteractionStart, { passive: true });
+                sliderContainer.addEventListener('touchend', handleInteractionEnd);
+                sliderContainer.addEventListener('touchmove', handleInteractionMove, { passive: true });
+                
+                startAutoScroll();
             }
 
-            checkboxPrivat.addEventListener('change', toggleKebutuhanSection);
-            checkboxCustom.addEventListener('change', toggleKebutuhanSection);
 
-            whatsappButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                let formIsValid = true;
-                
-                // --- Validasi Input ---
-                const inputsToValidate = ['nama', 'whatsapp', 'email'];
-                inputsToValidate.forEach(id => {
-                    const input = document.getElementById(id);
-                    const errorElement = document.getElementById(id + 'Error');
-                    if (input.value.trim() === '' || (input.type === 'email' && !input.checkValidity())) {
-                        errorElement.style.display = 'block';
-                        formIsValid = false;
-                    } else {
-                        errorElement.style.display = 'none';
-                    }
+            // --- Fungsionalitas Filter Portofolio ---
+            const filterButtons = document.querySelectorAll('.category-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            if(filterButtons.length > 0 && portfolioItems.length > 0) {
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const category = button.getAttribute('data-category');
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                        portfolioItems.forEach(item => {
+                            const itemCategory = item.getAttribute('data-category');
+                            if (category === 'all' || itemCategory === category) {
+                                item.classList.remove('hidden');
+                            } else {
+                                item.classList.add('hidden');
+                            }
+                        });
+                    });
                 });
+            }
 
-                // --- Validasi Checkbox ---
-                const layananError = document.getElementById('layananError');
-                if (!checkboxPrivat.checked && !checkboxCustom.checked) {
-                    layananError.style.display = 'block';
-                    formIsValid = false;
-                } else {
-                    layananError.style.display = 'none';
-                }
+            // --- Fungsionalitas Modal Galeri Portofolio ---
+            const modal = document.getElementById('portfolio-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDescription = document.getElementById('modal-description');
+            const modalGallery = document.getElementById('modal-gallery');
+            const closeButton = document.querySelector('.close-button');
+            
+            if (modal) {
+                portfolioItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const title = item.getAttribute('data-title');
+                        const description = item.getAttribute('data-description');
+                        const imagesAttr = item.getAttribute('data-images');
+                        if (!title || !description || !imagesAttr) return;
 
-                // --- Validasi Textarea jika terlihat ---
-                const kebutuhanDetail = document.getElementById('kebutuhan_detail');
-                const kebutuhanError = document.getElementById('kebutuhanDetailError');
-                if (!kebutuhanSection.classList.contains('hidden') && kebutuhanDetail.value.trim() === '') {
-                    kebutuhanError.style.display = 'block';
-                    formIsValid = false;
-                } else {
-                    kebutuhanError.style.display = 'none';
-                }
-
-                if (!formIsValid) return;
-
-                // --- Buat Pesan WhatsApp ---
-                let message = 'Halo Creovative! Saya sudah mengisi form konsultasi custom sheet. Berikut ringkasan data saya:\n\n';
-                message += '*Nama:* ' + document.getElementById('nama').value + '\n';
-                message += '*WhatsApp:* ' + document.getElementById('whatsapp').value + '\n';
-                message += '*Email:* ' + document.getElementById('email').value + '\n\n';
-
-                const layanan = [];
-                if (checkboxPrivat.checked) layanan.push('Kelas Privat Spreadsheet');
-                if (checkboxCustom.checked) layanan.push('Pembuatan Spreadsheet Custom');
-                message += '*Layanan Diminati:*\n' + layanan.join(', ') + '\n\n';
-
-                if (!kebutuhanSection.classList.contains('hidden')) {
-                    message += '*Kebutuhan Saya:*\n' + kebutuhanDetail.value + '\n\n';
-                }
-
-                message += 'Mohon tindak lanjutnya yaa, terimakasih!';
-                
-                const whatsappNumber = '62881080606200';
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
-            });
+                        const images = imagesAttr.split(',');
+                        modalTitle.textContent = title;
+                        modalDescription.textContent = description;
+                        modalGallery.innerHTML = '';
+                        images.forEach(imgUrl => {
+                            const imgElement = document.createElement('img');
+                            imgElement.src = imgUrl.trim();
+                            imgElement.alt = "Gambar Galeri " + title;
+                            modalGallery.appendChild(imgElement);
+                        });
+                        modal.style.display = 'block';
+                        document.body.classList.add('modal-open');
+                    });
+                });
+                const closeModal = () => {
+                    modal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                };
+                closeButton.addEventListener('click', closeModal);
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) { closeModal(); }
+                });
+            }
         });
     </script>
+
 </body>
 </html>
