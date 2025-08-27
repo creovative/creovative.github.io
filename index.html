@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creovative - Lebih Produktif Bersama Template Google Sheet & Kelas Zoom</title>
+    <title>Creovative - Keuangan, Google Sheet, Website Dev</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Kelola bisnis dengan lebih mudah melalui Template Google Sheet siap pakai dan Kelas Zoom interaktif. Solusi hemat biaya, cepat, dan efisien untuk usaha Anda.">
+    <meta name="description" content="Kelola bisnis dengan lebih mudah melalui Template Google Sheet siap pakai. Solusi hemat biaya, cepat, dan efisien untuk usaha Anda.">
     <meta name="keywords" content="template google sheet, kelas zoom bisnis, dashboard keuangan, tracking stok, sistem bisnis, UMKM, produktivitas, laporan keuangan otomatis">
     <meta name="author" content="Creovative">
-
+    
     <!-- Meta tags untuk warna UI browser mobile -->
     <meta name="theme-color" content="#2f9442"/> 
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/> 
@@ -19,6 +19,9 @@
     <link rel="icon" type="image/webp" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
     <meta property="og:image" content="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
     <meta name="twitter:image" content="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
+
+    <!-- REVISI: Font Awesome Stylesheet ditambahkan -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         :root {
@@ -33,6 +36,9 @@
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes modalContentSlideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        /* Animasi untuk chat widget */
+        @keyframes widgetFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -156,6 +162,78 @@
         .social-icon { width: 24px; height: 24px; }
         .copyright { margin-top: 3rem; font-size: 0.9rem; opacity: 0.6; }
 
+        /* --- WHATSAPP CHAT WIDGET --- */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--green-dark);
+            color: var(--white);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-fab:hover { transform: scale(1.1); }
+        .whatsapp-fab .fa { font-size: 32px; } /* REVISI: Ukuran ikon Font Awesome */
+
+        .chat-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            animation: widgetFadeIn 0.3s ease-out;
+        }
+        .chat-widget.active { display: block; }
+        .chat-header {
+            background-color: var(--green-dark);
+            color: var(--white);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h3 { font-size: 1.1rem; margin: 0; }
+        .chat-close-btn { background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .chat-body { padding: 1.5rem; }
+        .chat-body textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: none;
+            font-family: inherit;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .chat-body textarea:focus { outline: none; border-color: var(--green-dark); box-shadow: 0 0 8px rgba(47, 148, 66, 0.2); }
+        .chat-body .btn-send {
+            background-color: var(--green-dark);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .chat-body .btn-send:hover { opacity: 0.9; }
+
         /* --- RESPONSIVE STYLES --- */
         @media (max-width: 1024px) {
             .container { padding: 0 2rem; }
@@ -184,6 +262,8 @@
             
             .portfolio-categories { justify-content: center; }
             .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+            .chat-widget { width: calc(100% - 40px); }
         }
     </style>
 </head>
@@ -203,13 +283,13 @@
                     <div class="phone-mockups">
                         <div class="phone phone1">
                             <div class="phone-screen chart-screen">
-                                <h3 class="chart-title">Event Expenses</h3>
+                                <h3 class="chart-title">Smart Solutions, Shared Growth☘️</h3>
                                 <div class="donut-chart"></div>
                                 <ul class="legend">
-                                    <li class="legend-item"><div class="legend-color" style="background: #4CAF50;"></div>Venue (40%)</li>
-                                    <li class="legend-item"><div class="legend-color" style="background: #FFC107;"></div>Catering (25%)</li>
-                                    <li class="legend-item"><div class="legend-color" style="background: #FF5722;"></div>Equipment (20%)</li>
-                                    <li class="legend-item"><div class="legend-color" style="background: #2196F3;"></div>Marketing (15%)</li>
+                                    <li class="legend-item"><div class="legend-color" style="background: #4CAF50;"></div>Keuangan (40%)</li>
+                                    <li class="legend-item"><div class="legend-color" style="background: #FFC107;"></div>Website (25%)</li>
+                                    <li class="legend-item"><div class="legend-color" style="background: #FF5722;"></div>Google Sheet (20%)</li>
+                                    <li class="legend-item"><div class="legend-color" style="background: #2196F3;"></div>Excel (15%)</li>
                                 </ul>
                             </div>
                         </div>
@@ -263,7 +343,7 @@
                                 <li>Tanya jawab interaktif</li>
                                 <li>Materi step-by-step untuk pemula</li>
                             </ul>
-                            <a href="https://wa.me/62881080606200?text=Halo%20Creovative%2C%20saya%20mau%20mendaftar%20Kelas%20Zoom%20Eksklusif.%20Bagaimana%20caranya%20ya%3F" target="_blank" class="btn-orange">Daftar Kelas Zoom</a>
+                            <a href="https://wa.me/62881080606200?text=Hai%20kak%20saya%20mau%20konsultasi%20kelas%20zoom%20eksklusif" target="_blank" class="btn-orange">Daftar Kelas Zoom</a>
                         </div>
                     </div>
                 </div>
@@ -302,7 +382,6 @@
                     <button class="category-btn" data-category="inventaris">Inventaris</button>
                     <button class="category-btn" data-category="proyek">Proyek</button>
                 </div>
-                <!-- REVISI: Konten portofolio diperbarui -->
                 <div class="portfolio-grid">
                     <div class="portfolio-item" data-category="proyek" data-title="Catatan untuk Sewa Arena" data-description="Sistem pencatatan dan manajemen untuk penyewaan arena atau tempat." data-images="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212642.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212709.jpg,https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212723.jpg">
                         <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/porto%20img/CATATAN%20UNTUK%20SEWA%20ARENA/UNTUK%20PORTO_Screenshot%202025-08-23%20212642.jpg" alt="Catatan Sewa Arena"><div class="portfolio-item-content"><h3>Catatan untuk Sewa Arena</h3><p>Sistem manajemen penyewaan.</p></div></div>
@@ -355,6 +434,24 @@
     <div id="portfolio-modal" class="modal">
         <div class="modal-content"><span class="close-button">&times;</span><h3 id="modal-title"></h3><p id="modal-description"></p><div id="modal-gallery" class="gallery-grid"></div></div>
     </div>
+
+    <!-- Tombol dan Widget Chat WhatsApp -->
+    <div class="whatsapp-fab" id="whatsapp-fab">
+        <!-- REVISI: Ikon SVG diganti dengan Font Awesome -->
+        <i class="fa fa-whatsapp"></i>
+    </div>
+
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-header">
+            <h3>Hai, ada yang bisa kami bantu?</h3>
+            <button class="chat-close-btn" id="chat-close-btn">&times;</button>
+        </div>
+        <div class="chat-body">
+            <textarea id="chat-message" placeholder="hai kak saya pengen order sheet"></textarea>
+            <button class="btn-send" id="send-chat-btn">Mulai Chat</button>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -490,9 +587,33 @@
                     if (event.target === modal) { closeModal(); }
                 });
             }
+
+            // --- Fungsionalitas Chat Widget ---
+            const fab = document.getElementById('whatsapp-fab');
+            const widget = document.getElementById('chat-widget');
+            const closeWidgetBtn = document.getElementById('chat-close-btn');
+            const sendChatBtn = document.getElementById('send-chat-btn');
+            const chatMessage = document.getElementById('chat-message');
+
+            fab.addEventListener('click', () => {
+                widget.classList.toggle('active');
+            });
+
+            closeWidgetBtn.addEventListener('click', () => {
+                widget.classList.remove('active');
+            });
+
+            sendChatBtn.addEventListener('click', () => {
+                const message = chatMessage.value.trim();
+                if (message) {
+                    const whatsappNumber = '62881080606200';
+                    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                    widget.classList.remove('active');
+                }
+            });
         });
     </script>
 
 </body>
 </html>
-
