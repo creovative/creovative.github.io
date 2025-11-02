@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buat Invoice Creovative</title>
+
+  <meta name="description" content="Form Invoice Creovative - Smart Solutions, Shared Growth" />
+  <meta name="theme-color" content="#2f9442" />
+
+  <style>
+    :root {
+      --green: #2f9442;
+      --white: #ffffff;
+      --border: #dee2e6;
+      --bg: #f8f9fa;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: var(--green);
+      color: var(--white);
+      text-align: center;
+      padding: 1rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .container {
+      max-width: 600px;
+      background: var(--white);
+      margin: 60px auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      color: var(--green);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    button {
+      background: var(--green);
+      color: var(--white);
+      width: 100%;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.1);
+    }
+
+    #hasil {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>Creovative | Form Invoice</header>
+
+  <div class="container">
+    <h2>Buat Invoice Baru</h2>
+
+    <label>Nama Klien</label>
+    <input id="nama" type="text" placeholder="Contoh: Budi & Toko Maju" required />
+
+    <label>Email</label>
+    <input id="email" type="email" placeholder="nama@email.com" required />
+
+    <label>Layanan</label>
+    <input id="layanan" type="text" placeholder="Spreadsheet Custom, Dashboard, Website, dll" required />
+
+    <label>Deskripsi</label>
+    <textarea id="deskripsi" placeholder="Tuliskan detail pekerjaan atau proyek..." required></textarea>
+
+    <label>Total (Rp)</label>
+    <input id="total" type="number" placeholder="Contoh: 750000" required />
+
+    <button onclick="buatInvoice()">Buat Invoice</button>
+
+    <div id="hasil"></div>
+  </div>
+
+  <script>
+    // Ganti URL ini dengan URL Apps Script kamu (setelah deploy)
+    const API_URL = "https://script.google.com/macros/s/AKfycbzy6jEutCnpPRTNkFGGGBMYSx29jwnJ0Z6dFWh-_li8s92kAG6wY6mC1TVaTGqxgw6I/exec";
+
+    async function buatInvoice() {
+      const data = {
+        nama: document.getElementById("nama").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        layanan: document.getElementById("layanan").value.trim(),
+        deskripsi: document.getElementById("deskripsi").value.trim(),
+        total: document.getElementById("total").value.trim(),
+      };
+
+      if (!data.nama || !data.email || !data.layanan || !data.deskripsi || !data.total) {
+        document.getElementById("hasil").innerHTML = "⚠️ Lengkapi semua kolom sebelum mengirim.";
+        return;
+      }
+
+      document.getElementById("hasil").innerHTML = "⏳ Membuat invoice...";
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        if (result.status === "success") {
+          document.getElementById("hasil").innerHTML = `
+            ✅ <b>Invoice ${result.noInvoice}</b> berhasil dibuat.<br>
+            <a href="${result.pdfUrl}" target="_blank">📄 Lihat PDF</a>
+          `;
+        } else {
+          document.getElementById("hasil").innerHTML = `❌ Gagal membuat invoice: ${result.message}`;
+        }
+      } catch (error) {
+        document.getElementById("hasil").innerHTML = "❌ Gagal terhubung ke server Apps Script.";
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>
