@@ -1,352 +1,207 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
-    
-    <title>Form Creovative</title>
-    <meta name="description" content="Smart Solutions, Shared Growth">
-    <meta name="theme-color" content="#2f9442">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Formulir Konsultasi Cepat | Creovative</title>
+  <meta name="description" content="Smart Solutions, Shared Growth">
+  <meta name="theme-color" content="#2f9442">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="icon" type="image/webp" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
-    <meta property="og:title" content="Form Creovative">
-    <meta property="og:description" content="Kelola Bisnis, keuangan pribadi, atau kebiasaan harian lebih cepat dan rapi tanpa ribet.">
-    <meta property="og:image" content="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
-    <meta property="og:url" content="https://creovative.art/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Creovative">
-    
-    <style>
-        :root {
-            --green-dark: #2f9442;
-            --orange-accent: #f59f00;
-            --text-dark: #333;
-            --text-light: #6c757d;
-            --border-color: #dee2e6;
-            --white: #fff;
-            --bg-light-grey: #f8f9fa;
-        }
+  <link rel="icon" type="image/webp" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
+  <meta property="og:title" content="Form Creovative">
+  <meta property="og:description" content="Kelola Bisnis, keuangan pribadi, atau kebiasaan harian lebih cepat dan rapi tanpa ribet.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creovative-logo2.webp">
+  <meta property="og:url" content="https://creovative.art/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Creovative">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg-light-grey);
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 120px auto 40px auto;
-            background: var(--white);
-            padding: 2rem 2.5rem;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            width: 90%;
-            flex-grow: 1;
-        }
-
-        /* --- HEADER --- */
-        header { background: var(--green-dark); color: var(--white); padding: 1rem 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        header .container-header { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-        .brand { font-size: 1.5rem; font-weight: 700; color: var(--white); text-decoration: none; }
-        
-        /* --- FORM STYLES --- */
-        h1 {
-            color: var(--green-dark);
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 2em;
-        }
-        .form-intro {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 2.5rem;
-        }
-        h2 {
-            color: var(--text-dark);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            font-size: 1.5em;
-        }
-        .section { margin-bottom: 30px; }
-        .section.hidden { display: none; }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
-            font-size: 1em;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 5px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 1em;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus,
-        textarea:focus {
-            border-color: var(--green-dark);
-            box-shadow: 0 0 8px rgba(47, 148, 66, 0.2);
-            outline: none;
-        }
-        
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            font-weight: normal;
-            margin-bottom: 12px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        input[type="checkbox"] {
-            margin-right: 12px;
-            transform: scale(1.2);
-            accent-color: var(--green-dark);
-        }
-        textarea { resize: vertical; min-height: 100px; }
-        .note { font-size: 0.9em; color: var(--text-light); margin-top: 5px; margin-bottom: 20px; }
-        .error-message { color: #e74c3c; font-size: 0.85em; margin-top: 5px; margin-bottom: 15px; display: none; }
-        
-        .btn-orange {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 25px auto 0 auto;
-            background: var(--orange-accent);
-            color: var(--white);
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-orange:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        /* --- FOOTER --- */
-        /* REVISI: Footer dirapikan */
-        footer { background: var(--green-dark); color: var(--white); padding: 4rem 1rem; margin-top: auto; }
-        footer .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0;
-            background: none;
-            box-shadow: none;
-            border-radius: 0;
-        }
-        .footer-logo { max-width: 150px; }
-        .footer-nav { list-style: none; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; padding: 0; }
-        .footer-nav a { color: var(--white); text-decoration: none; transition: opacity 0.3s ease; }
-        .footer-nav a:hover { opacity: 0.8; }
-        .social-links { display: flex; justify-content: center; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-        .social-link { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--white); transition: opacity 0.3s ease; }
-        .social-link:hover { opacity: 0.8; }
-        .social-icon { width: 24px; height: 24px; }
-        .copyright { margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.6; }
-
-        /* --- RESPONSIVE STYLES --- */
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                margin: 90px auto 30px auto;
-                padding: 1.5rem;
-            }
-            h1 { font-size: 1.8em; }
-            h2 { font-size: 1.4em; }
-        }
-    </style>
+  <style>
+    :root {
+      --green-dark: #2f9442;
+      --orange-accent: #f59f00;
+      --text-dark: #333;
+      --text-light: #6c757d;
+      --border-color: #dee2e6;
+      --white: #fff;
+      --bg-light-grey: #f8f9fa;
+    }
+    * {margin:0;padding:0;box-sizing:border-box;}
+    html {scroll-behavior:smooth;}
+    body {
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      line-height:1.6;
+      background-color:var(--bg-light-grey);
+      color:var(--text-dark);
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      overflow-x:hidden;
+    }
+    .container {
+      max-width:800px;
+      margin:120px auto 40px auto;
+      background:var(--white);
+      padding:2rem 2.5rem;
+      box-shadow:0 4px 25px rgba(0,0,0,0.1);
+      border-radius:15px;
+      width:90%;
+      flex-grow:1;
+    }
+    header {background:var(--green-dark);color:var(--white);padding:1rem 0;position:fixed;width:100%;top:0;z-index:1000;}
+    header .container-header {max-width:1140px;margin:0 auto;padding:0 1.5rem;display:flex;justify-content:space-between;align-items:center;}
+    .brand {font-size:1.5rem;font-weight:700;color:var(--white);text-decoration:none;}
+    h1 {color:var(--green-dark);text-align:center;margin-bottom:1rem;font-size:2em;}
+    .form-intro {text-align:center;color:var(--text-light);margin-bottom:2.5rem;}
+    label {display:block;margin-bottom:8px;font-weight:bold;color:#555;font-size:1em;}
+    input[type="text"],input[type="email"],select,textarea {
+      width:100%;
+      padding:12px;
+      margin-bottom:10px;
+      border:1px solid var(--border-color);
+      border-radius:8px;
+      font-size:1em;
+      transition:border-color .3s ease,box-shadow .3s ease;
+    }
+    input:focus,textarea:focus,select:focus {
+      border-color:var(--green-dark);
+      box-shadow:0 0 8px rgba(47,148,66,.2);
+      outline:none;
+    }
+    textarea {resize:vertical;min-height:100px;}
+    .radio-group label {display:flex;align-items:center;font-weight:normal;margin-bottom:12px;font-size:1em;cursor:pointer;}
+    input[type="radio"] {margin-right:12px;transform:scale(1.2);accent-color:var(--green-dark);}
+    .btn-orange {
+      display:block;width:100%;max-width:300px;margin:25px auto 0 auto;
+      background:var(--orange-accent);color:var(--white);padding:14px 28px;border-radius:8px;
+      text-decoration:none;font-weight:bold;font-size:1.1em;text-align:center;transition:all .3s ease;
+      border:none;cursor:pointer;
+    }
+    .btn-orange:hover {opacity:.9;transform:translateY(-2px);}
+    footer {background:var(--green-dark);color:var(--white);padding:4rem 1rem;margin-top:auto;}
+    footer .container {display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:1140px;margin:0 auto;padding:0;background:none;box-shadow:none;border-radius:0;}
+    .footer-logo {max-width:150px;}
+    .footer-nav {list-style:none;display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;padding:0;}
+    .footer-nav a {color:var(--white);text-decoration:none;transition:opacity .3s ease;}
+    .footer-nav a:hover {opacity:.8;}
+    .social-links {display:flex;justify-content:center;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+    .social-link {display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--white);transition:opacity .3s ease;}
+    .social-link:hover {opacity:.8;}
+    .social-icon {width:24px;height:24px;}
+    .copyright {margin-top:1.5rem;font-size:.9rem;opacity:.6;}
+    @media (max-width:768px){.container{width:95%;margin:90px auto 30px auto;padding:1.5rem;}h1{font-size:1.8em;}}
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container-header">
-            <a href="https://creovative.github.io/" class="brand">creovative</a>
-        </div>
-    </header>
-
-    <div class="container">
-        <h1>Form Creovative</h1>
-        <p class="form-intro">Silakan lengkapi formulir singkat di bawah ini agar kami bisa membantu Anda lebih cepat.</p>
-
-        <form id="creovativeForm" novalidate>
-            <div class="section">
-                <h2>Informasi Kontak</h2>
-                <div>
-                    <label for="nama">Nama Lengkap:</label>
-                    <input type="text" id="nama" name="nama" required>
-                    <div class="error-message" id="namaError">Nama lengkap wajib diisi.</div>
-                </div>
-                <div>
-                    <label for="whatsapp">Nomor WhatsApp:</label>
-                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Contoh: 6281234567890" required>
-                    <div class="error-message" id="whatsappError">Nomor WhatsApp wajib diisi.</div>
-                    <p class="note"><em>Pastikan nomor aktif agar mudah dihubungi.</em></p>
-                </div>
-                <div>
-                    <label for="email">Alamat Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <div class="error-message" id="emailError">Alamat email wajib diisi dan format harus benar.</div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2>Layanan yang Diminati</h2>
-                <div class="checkbox-group" id="layananCheckboxes">
-                    <label><input type="checkbox" name="layanan" value="Kelas Privat Spreadsheet" id="checkboxPrivat"> Kelas Privat Spreadsheet</label>
-                    <label><input type="checkbox" name="layanan" value="Pembuatan Spreadsheet Custom" id="checkboxCustom"> Pembuatan Spreadsheet Custom</label>
-                </div>
-                <div class="error-message" id="layananError">Mohon pilih setidaknya satu layanan.</div>
-            </div>
-
-            <div class="section hidden" id="kebutuhanSection">
-                <h2>Ceritakan Kebutuhan Anda</h2>
-                <div>
-                    <label for="kebutuhan_detail">Jelaskan singkat kebutuhan Anda:</label>
-                    <textarea id="kebutuhan_detail" name="kebutuhan_detail" placeholder="Contoh: Saya ingin belajar membuat dashboard data penjualan dengan PivotTable dan grafik. Atau: Saya butuh spreadsheet untuk melacak inventaris toko online saya." required></textarea>
-                    <div class="error-message" id="kebutuhanDetailError">Penjelasan kebutuhan wajib diisi.</div>
-                </div>
-            </div>
-            
-            <button type="button" class="btn-orange" id="sendWhatsapp">Kirim ke WhatsApp</button>
-        </form>
+  <header>
+    <div class="container-header">
+      <a href="https://creovative.github.io/" class="brand">creovative</a>
     </div>
+  </header>
 
-    <footer id="kontak">
-        <div class="container">
-            <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creo-land.webp" alt="Creovative Logo" class="footer-logo">
-            <ul class="footer-nav">
-                <li><a href="https://creovative.github.io/#beranda">Beranda</a></li>
-                <li><a href="https://creovative.github.io/#produk">Produk</a></li>
-                <li><a href="https://creovative.github.io/#produk">Kelas Zoom</a></li>
-                <li><a href="https://creovative.github.io/#portfolio">Portfolio</a></li>
-            </ul>
-            <div class="social-links">
-                <a href="https://wa.me/62881080606200?text=hai%20kak%20saya%20mau%20konsultasi%20spreadsheet" target="_blank" class="social-link">
-                    <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-wa.webp" alt="WhatsApp" class="social-icon">
-                </a>
-                <a href="https://www.tiktok.com/@creovativee" target="_blank" class="social-link">
-                    <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-tiktok.webp" alt="TikTok" class="social-icon">
-                </a>
-                <a href="https://www.instagram.com/creovative_/" target="_blank" class="social-link">
-                    <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-ig.webp" alt="Instagram" class="social-icon">
-                </a>
-                <a href="https://lynk.id/creovative" target="_blank" class="social-link">
-                    <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-lynk.webp" alt="Lynk.id" class="social-icon">
-                </a>
-            </div>
-            <div class="copyright">&copy; 2025 Creovative. All rights reserved.</div>
+  <div class="container">
+    <h1>Formulir Konsultasi Cepat</h1>
+    <p class="form-intro">
+      Tertarik untuk membereskan data dan mengotomatisasi pekerjaan Anda?<br>
+      Isi 5 poin di bawah ini dan kami akan segera siapkan solusi terbaik untuk Anda!
+    </p>
+
+    <form id="creovativeForm" novalidate>
+      <div class="section">
+        <label for="nama">1. Nama Anda & Nama Bisnis:</label>
+        <input type="text" id="nama" name="nama" placeholder="Contoh: Aidzaa - CV. Berkah Selalu" required>
+      </div>
+
+      <div class="section">
+        <label for="email">2. Email Aktif:</label>
+        <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+      </div>
+
+      <div class="section">
+        <label for="jenis">3. Kebutuhan Ini Untuk:</label>
+        <select id="jenis" name="jenis" required>
+          <option value="" disabled selected>Pilih salah satu</option>
+          <option value="Bisnis">Bisnis</option>
+          <option value="Pribadi">Pribadi</option>
+        </select>
+      </div>
+
+      <div class="section">
+        <label>4. Tujuan Utama Proyek Anda:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="tujuan" value="Rapikan Data & Laporan"> Rapikan Data & Laporan (Dashboard, Visualisasi Sheet)</label>
+          <label><input type="radio" name="tujuan" value="Otomatisasi Pekerjaan"> Otomatisasi Pekerjaan (Form Kustom, Notifikasi Otomatis, Apps Script)</label>
+          <label><input type="radio" name="tujuan" value="Butuh Template Khusus"> Butuh Template Khusus (Keuangan, Stok, Administrasi Cepat)</label>
+          <label><input type="radio" name="tujuan" value="Buat Website / Aplikasi Web"> Buat Website Apps Script / Aplikasi Web</label>
         </div>
-    </footer>
+      </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('creovativeForm');
-            const checkboxPrivat = document.getElementById('checkboxPrivat');
-            const checkboxCustom = document.getElementById('checkboxCustom');
-            const kebutuhanSection = document.getElementById('kebutuhanSection');
-            const whatsappButton = document.getElementById('sendWhatsapp');
+      <div class="section">
+        <label for="kebutuhan">5. Jelaskan Kebutuhan / Alur Secara Rinci:</label>
+        <textarea id="kebutuhan" name="kebutuhan" placeholder="Contoh: Saya punya 5 file data penjualan, ingin digabung jadi 1 Sheet, lalu dibuatkan grafik yang terupdate otomatis" required></textarea>
+      </div>
 
-            function toggleKebutuhanSection() {
-                if (checkboxPrivat.checked || checkboxCustom.checked) {
-                    kebutuhanSection.classList.remove('hidden');
-                    document.getElementById('kebutuhan_detail').setAttribute('required', 'required');
-                } else {
-                    kebutuhanSection.classList.add('hidden');
-                    document.getElementById('kebutuhan_detail').removeAttribute('required');
-                }
-            }
+      <button type="button" class="btn-orange" id="sendWhatsapp">Kirim ke WhatsApp</button>
+    </form>
+  </div>
 
-            checkboxPrivat.addEventListener('change', toggleKebutuhanSection);
-            checkboxCustom.addEventListener('change', toggleKebutuhanSection);
+  <footer id="kontak">
+    <div class="container">
+      <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/creo-land.webp" alt="Creovative Logo" class="footer-logo">
+      <ul class="footer-nav">
+        <li><a href="https://creovative.github.io/#beranda">Beranda</a></li>
+        <li><a href="https://creovative.github.io/#produk">Produk</a></li>
+        <li><a href="https://creovative.github.io/#produk">Kelas Zoom</a></li>
+        <li><a href="https://creovative.github.io/#portfolio">Portfolio</a></li>
+      </ul>
+      <div class="social-links">
+        <a href="https://wa.me/62881080606200?text=hai%20kak%20saya%20mau%20konsultasi%20spreadsheet" target="_blank" class="social-link">
+          <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-wa.webp" alt="WhatsApp" class="social-icon">
+        </a>
+        <a href="https://www.tiktok.com/@creovativee" target="_blank" class="social-link">
+          <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-tiktok.webp" alt="TikTok" class="social-icon">
+        </a>
+        <a href="https://www.instagram.com/creovative_/" target="_blank" class="social-link">
+          <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-ig.webp" alt="Instagram" class="social-icon">
+        </a>
+        <a href="https://lynk.id/creovative" target="_blank" class="social-link">
+          <img src="https://raw.githubusercontent.com/creovative/creovative.github.io/refs/heads/main/img/logo-lynk.webp" alt="Lynk.id" class="social-icon">
+        </a>
+      </div>
+      <div class="copyright">&copy; 2025 Creovative. All rights reserved.</div>
+    </div>
+  </footer>
 
-            whatsappButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                let formIsValid = true;
-                
-                // --- Validasi Input ---
-                const inputsToValidate = ['nama', 'whatsapp', 'email'];
-                inputsToValidate.forEach(id => {
-                    const input = document.getElementById(id);
-                    const errorElement = document.getElementById(id + 'Error');
-                    if (input.value.trim() === '' || (input.type === 'email' && !input.checkValidity())) {
-                        errorElement.style.display = 'block';
-                        formIsValid = false;
-                    } else {
-                        errorElement.style.display = 'none';
-                    }
-                });
+  <script>
+    document.getElementById('sendWhatsapp').addEventListener('click', function() {
+      const nama = document.getElementById('nama').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const jenis = document.getElementById('jenis').value;
+      const tujuan = document.querySelector('input[name="tujuan"]:checked');
+      const kebutuhan = document.getElementById('kebutuhan').value.trim();
 
-                // --- Validasi Checkbox ---
-                const layananError = document.getElementById('layananError');
-                if (!checkboxPrivat.checked && !checkboxCustom.checked) {
-                    layananError.style.display = 'block';
-                    formIsValid = false;
-                } else {
-                    layananError.style.display = 'none';
-                }
+      if (!nama || !email || !jenis || !tujuan || !kebutuhan) {
+        alert('Mohon lengkapi semua kolom sebelum mengirim.');
+        return;
+      }
 
-                // --- Validasi Textarea jika terlihat ---
-                const kebutuhanDetail = document.getElementById('kebutuhan_detail');
-                const kebutuhanError = document.getElementById('kebutuhanDetailError');
-                if (!kebutuhanSection.classList.contains('hidden') && kebutuhanDetail.value.trim() === '') {
-                    kebutuhanError.style.display = 'block';
-                    formIsValid = false;
-                } else {
-                    kebutuhanError.style.display = 'none';
-                }
+      const message = `Halo Creovative! Saya ingin konsultasi cepat.
 
-                if (!formIsValid) return;
+*Nama & Bisnis:* ${nama}
+*Email:* ${email}
+*Kebutuhan Untuk:* ${jenis}
+*Tujuan Proyek:* ${tujuan.value}
 
-                // --- Buat Pesan WhatsApp ---
-                let message = 'Halo Creovative! Saya sudah mengisi form konsultasi custom sheet. Berikut ringkasan data saya:\n\n';
-                message += '*Nama:* ' + document.getElementById('nama').value + '\n';
-                message += '*WhatsApp:* ' + document.getElementById('whatsapp').value + '\n';
-                message += '*Email:* ' + document.getElementById('email').value + '\n\n';
+*Deskripsi Kebutuhan:*
+${kebutuhan}
 
-                const layanan = [];
-                if (checkboxPrivat.checked) layanan.push('Kelas Privat Spreadsheet');
-                if (checkboxCustom.checked) layanan.push('Pembuatan Spreadsheet Custom');
-                message += '*Layanan Diminati:*\n' + layanan.join(', ') + '\n\n';
+Terima kasih! Saya menunggu analisis dan tindak lanjut dari tim Creovative.`;
 
-                if (!kebutuhanSection.classList.contains('hidden')) {
-                    message += '*Kebutuhan Saya:*\n' + kebutuhanDetail.value + '\n\n';
-                }
-
-                message += 'Mohon tindak lanjutnya yaa, terimakasih!';
-                
-                const whatsappNumber = '62881080606200';
-                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
-            });
-        });
-    </script>
+      const whatsappNumber = '62881080606200';
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    });
+  </script>
 </body>
 </html>
-
